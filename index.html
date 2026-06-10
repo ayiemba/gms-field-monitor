@@ -753,6 +753,7 @@ let TABLES=null, CUR=0;
 const stepPos={}, visited={};
 function isFilled(it){const v=it.key in state?state[it.key]:origValueFor(it);return String(v).trim()!==''}
 function missingRequired(si){return inputsIndex.filter(it=>it.req&&(si==null||it.si===si)&&!isFilled(it))}
+function stepMissing(si,gi){return inputsIndex.filter(it=>it.req&&it.si===si&&it.gi===gi&&!isFilled(it))}
 
 function renderForm(){
   inputsIndex=[];
@@ -797,11 +798,13 @@ function renderForm(){
       const lastStep=gi===sec.groups.length-1, lastSec=i===CATALOG.length-1;
       const next=el('button',{class:'btn'},lastStep?(lastSec?'Finish &#10003;':'Next section &#9656;'):'Next &#9656;');
       next.addEventListener('click',()=>{
+        const miss=stepMissing(i,gi);
+        if(miss.length){flagMissing(i,miss);return}
         if(!lastStep)showStep(i,gi+1);
         else if(!lastSec)showTab(i+1);
         else{
-          const miss=missingRequired();
-          if(miss.length)flagMissing(miss[0].si,missingRequired(miss[0].si));
+          const missAll=missingRequired();
+          if(missAll.length)flagMissing(missAll[0].si,missingRequired(missAll[0].si));
           else notice('ok','All mandatory fields are complete — generate the Excel with the button below.');
         }
       });
@@ -859,7 +862,14 @@ function updateStepper(si){
   const n=CATALOG[si].groups.length,cur=stepPos[si]||0;
   if(dots.children.length!==n){dots.innerHTML='';
     for(let j=0;j<n;j++){const d=el('button',{type:'button',title:CATALOG[si].groups[j].h},String(j+1));
-      d.addEventListener('click',()=>showStep(si,j));dots.appendChild(d)}}
+      d.addEventListener('click',()=>{
+        const from=stepPos[si]||0;
+        if(j>from)for(let k=from;k<j;k++){ // forward jump: every step on the way must be complete
+          const miss=stepMissing(si,k);
+          if(miss.length){flagMissing(si,miss);return}
+        }
+        showStep(si,j);
+      });dots.appendChild(d)}}
   Array.from(dots.children).forEach((d,j)=>{
     const reqs=inputsIndex.filter(it=>it.si===si&&it.gi===j&&it.req);
     const miss=reqs.filter(it=>!isFilled(it));

@@ -14,7 +14,7 @@ Everything is in [index.html](index.html) — no server, no install, no data lea
    - fields are located through the `fld_*` named ranges GMS uses to read the upload;
    - dropdown options come from the template's own data-validation lists;
    - project info, indicators and activities are pre-filled from the GMS export.
-4. Fill the form. Each section is a short step-by-step wizard (numbered dots = sub-sections; green = complete). Fields marked __*__ are mandatory — you cannot move to the next tab until the current tabs' mandatory fields are complete (tab badges show how many remain). A draft autosaves in the browser after every keystroke; you can also **Export draft** to a JSON file and **Import** it on another machine.
+4. Fill the form. Each section is a short step-by-step wizard (numbered dots = sub-sections; green = complete). Fields marked __*__ are mandatory — the form does not move forward (next step, dot-jump, or next tab) until the current step's mandatory fields are filled; going back is always allowed. Tab badges show how many mandatory fields remain per section. A draft autosaves in the browser after every keystroke; you can also **Export draft** to a JSON file and **Import** it on another machine.
 5. Click **Generate Excel for GMS**. The download is the *original* workbook — byte-identical except for your answers injected into the GMS-named cells — so OneGMS accepts it exactly like a hand-filled template.
 6. Open the file once in Excel (scores on the `Rep Templ.Scoring` sheet recalculate automatically on open), check it, upload to OneGMS.
 
