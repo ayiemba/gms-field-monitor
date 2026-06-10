@@ -1,6 +1,8 @@
 # GMS Field Monitor
 
-A single-file web form for filling the OneGMS **Field Site Monitoring (FSM) report template** in the field, and regenerating the exact Excel file for upload back to OneGMS.
+**Live app: <https://ayiemba.github.io/gms-field-monitor/>**
+
+A web form for filling the OneGMS **Field Site Monitoring (FSM) report template** in the field, and regenerating the exact Excel file for upload back to OneGMS.
 
 Everything is in [index.html](index.html) — no server, no install, no data leaves the device.
 
@@ -22,15 +24,9 @@ Because the form adapts to whatever file is dropped in, it works for any project
 
 The GMS template is sheet-protected, slow on small screens, and easy to corrupt with generic tools (openpyxl-style round-trips silently strip workbook internals). This app never rebuilds the workbook — it patches only the value of edited cells inside the original zip, preserving styles, protection, validations, named ranges, printer settings and metadata untouched.
 
-## Hosting on GitHub Pages (optional)
+## Hosting
 
-```bash
-git init && git add index.html README.md && git commit -m "GMS field monitoring form"
-gh repo create gms-field-monitor --public --source . --push
-gh api repos/{owner}/gms-field-monitor/pages -X POST -f build_type=workflow # or enable Pages from branch in repo Settings
-```
-
-Then share `https://<owner>.github.io/gms-field-monitor/`. The monitoring template itself should **not** be committed — monitors load their own project export at use time, so no project data is ever published.
+Hosted on GitHub Pages from the `main` branch of [ayiemba/gms-field-monitor](https://github.com/ayiemba/gms-field-monitor); pushing to `main` redeploys automatically. The monitoring templates are **excluded by `.gitignore`** — monitors load their own project export at use time, so no project data is ever published. Keep it that way: never commit `Monitoring-*.xlsx` files or exported drafts.
 
 ## Branding
 
