@@ -38,6 +38,7 @@ header .sub{font-size:13.5px;color:var(--gray);margin-top:2px}
 #landing{max-width:880px;margin:0 auto;padding:0 12px 110px}
 #dropzone{margin:28px 0 8px;padding:38px 24px;border:2px dashed var(--blue-pale);border-radius:6px;background:#fff;text-align:center;cursor:pointer}
 #dropzone.drag{background:var(--blue-bg);border-color:var(--un)}
+#dropzone .lead{font-size:17px;font-weight:500;color:var(--ink);max-width:680px;margin:0 auto 18px;line-height:1.55}
 #dropzone h2{color:var(--blue-aaa);margin:0 0 8px}
 #dropzone p{color:var(--gray);margin:6px 0}
 #dropzone .btn{margin-top:12px}
@@ -48,17 +49,7 @@ header .sub{font-size:13.5px;color:var(--gray);margin-top:2px}
 .stepcard .n{display:inline-block;background:var(--un);color:#fff;border-radius:50%;width:21px;height:21px;line-height:21px;font-size:12px;font-weight:700;margin-right:4px}
 .stepcard h3{font-size:15px;margin:10px 0 6px;color:var(--blue-aaa)}
 .stepcard p{font-size:13.5px;color:var(--gray);margin:0;line-height:1.5}
-.cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.cmp .card{border:1px solid var(--g-lt);border-radius:6px;padding:16px}
-.cmp .card.hero{border:2px solid var(--un)}
-.cmp h3{display:flex;align-items:center;gap:8px;font-size:15.5px;color:var(--blue-aaa);margin:0 0 10px}
-.cmp h3 img{height:26px;width:26px}
-.cmp ul{list-style:none;padding:0;margin:0;font-size:13.5px}
-.cmp li{padding:4px 0 4px 20px;position:relative;color:var(--g-dark);line-height:1.5}
-.cmp li.y::before{content:"\2713";color:var(--green);position:absolute;left:2px;font-weight:700}
-.cmp li.n::before{content:"\2013";color:var(--red-aaa);position:absolute;left:2px;font-weight:700}
 .finefoot{font-size:13px;color:var(--gray);text-align:center;margin:22px auto 10px;max-width:640px;line-height:1.5}
-.finefoot a{color:var(--blue-aa)}
 nav#tabs{display:flex;gap:0;justify-content:center;overflow-x:auto;background:#fff;border-bottom:2px solid var(--g-lt);position:sticky;top:0;z-index:20}
 nav#tabs button{flex:0 1 auto;padding:11px 22px;border:0;background:none;font:inherit;font-size:14.5px;color:var(--g-dark);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
 nav#tabs button.on{color:var(--blue-aaa);border-bottom-color:var(--un);font-weight:600}
@@ -145,6 +136,7 @@ footer .bar{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr
 
 <div id="landing">
   <div id="dropzone">
+    <p class="lead">One visit, one entry: complete the FSM report in the field on any device — even offline — and get a GMS-ready Excel with every mandatory field checked and nothing retyped at the office.</p>
     <h2>Load the GMS monitoring template</h2>
     <p>Drop the <b>Monitoring-…xlsx</b> file exported from OneGMS here, or click to browse.</p>
     <p style="font-size:13px">Everything runs in your browser — no data leaves this device. Works offline once the page is open.</p>
@@ -177,42 +169,7 @@ footer .bar{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr
       </div>
     </div>
 
-    <h2 class="lh">Compared with the alternatives</h2>
-    <div class="cmp">
-      <div class="card hero">
-        <h3><img src="assets/icons/Validate-account.svg" alt="" onerror="this.style.display='none'"> This digital form</h3>
-        <ul>
-          <li class="y">Works offline in the field, on any device you already carry</li>
-          <li class="y">Guided steps and mandatory checks — no missed sections or scores</li>
-          <li class="y">Answers land exactly where GMS reads them — no retyping at the office, no broken template</li>
-          <li class="y">Drafts autosave and can be handed over between team members as a small file</li>
-          <li class="n">Needs a charged device, and the template loaded before departure</li>
-          <li class="n">Photos and signed attachments are still collected separately</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3><img src="assets/icons/Print.svg" alt="" onerror="this.style.display='none'"> Printed template</h3>
-        <ul>
-          <li class="y">No battery or device needed; works anywhere</li>
-          <li class="y">Easy to sketch, annotate and collect signatures</li>
-          <li class="n">Everything must be retyped into the Excel afterwards — double work and transcription errors</li>
-          <li class="n">30+ pages per project, with no validation — easy to miss mandatory fields</li>
-          <li class="n">Paper can be lost or damaged and is hard to back up</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3><img src="assets/icons/Laptop.svg" alt="" onerror="this.style.display='none'"> Excel on a laptop</h3>
-        <ul>
-          <li class="y">Familiar tool, full template exactly as GMS designed it</li>
-          <li class="y">No conversion step before upload</li>
-          <li class="n">Carrying a laptop in the field: weight, battery, glare, security</li>
-          <li class="n">Protected sheets are slow to navigate; long scrolling and tiny comment boxes</li>
-          <li class="n">No completeness checks, and version chaos when copies circulate</li>
-        </ul>
-      </div>
-    </div>
-    <p class="finefoot">Whichever way it is filled, the file uploaded to OneGMS is the official template — this form only fills it in.
-    Your data stays on this device until you upload to GMS yourself. Icons: <a href="https://un-ocha.github.io/humanitarian-icons/" target="_blank" rel="noopener">OCHA Humanitarian Icons</a>.</p>
+    <p class="finefoot">The file uploaded to OneGMS is always the official template — this form only fills it in.</p>
   </section>
 </div>
 

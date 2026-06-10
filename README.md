@@ -30,7 +30,7 @@ Hosted on GitHub Pages from the `main` branch of [ayiemba/gms-field-monitor](htt
 
 ## Branding
 
-Styled with the official OCHA brand palette (UN Blue `#009edb` primary, accessible AA/AAA text blues, neutral greys; flat design, no gradients) and the OCHA primary typeface **Roboto** (loaded from Google Fonts when online; falls back to Arial offline, per the brand guideline). The header shows the ESAHF wordmark from `assets/ESAHF_2024_wordmark_Blue.svg` (swap the file to rebrand for another fund). The landing page explains how it works and how it compares with printed forms or filling the Excel directly, illustrated with [OCHA Humanitarian Icons](https://un-ocha.github.io/humanitarian-icons/) stored under `assets/icons/`.
+Styled with the official OCHA brand palette (UN Blue `#009edb` for all blues; flat design, no gradients) and the OCHA primary typeface **Roboto** (loaded from Google Fonts when online; falls back to Arial offline, per the brand guideline). The header shows the ESAHF wordmark and the footer the OCHA logo, both from `assets/` (swap the wordmark to rebrand for another fund). The landing page explains the workflow in four steps, illustrated with [OCHA Humanitarian Icons](https://un-ocha.github.io/humanitarian-icons/) stored under `assets/icons/`.
 
 The mandatory-field list is the `REQUIRED` set near the top of the script in `index.html` — add or remove `fld_*` names there to change what is enforced.
 
