@@ -27,8 +27,8 @@
 body{margin:0;font-family:Roboto,Arial,sans-serif;color:var(--ink);background:#fff;font-size:15px}
 .brandbar{height:6px;background:var(--un)}
 header{border-bottom:1px solid var(--g-lt);background:#fff}
-header .hwrap{max-width:880px;margin:0 auto;padding:14px 16px 8px;display:flex;gap:14px;align-items:center}
-#logo{height:44px;width:auto;flex:none}
+header .hwrap{max-width:880px;margin:0 auto;padding:12px 16px 8px;display:flex;gap:18px;align-items:center}
+#logo{height:64px;width:auto;flex:none}
 header h1{margin:0;font-size:18px;font-weight:600;color:var(--navy)}
 header .sub{font-size:12.5px;color:var(--gray);margin-top:2px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;max-width:880px;margin:0 auto;padding:4px 16px}
@@ -58,13 +58,13 @@ header .sub{font-size:12.5px;color:var(--gray);margin-top:2px}
 .cmp li.n::before{content:"\2013";color:var(--red-aaa);position:absolute;left:2px;font-weight:700}
 .finefoot{font-size:12px;color:var(--gray);text-align:center;margin:22px auto 10px;max-width:640px;line-height:1.5}
 .finefoot a{color:var(--blue-aa)}
-nav#tabs{display:flex;gap:0;overflow-x:auto;background:#fff;border-bottom:2px solid var(--g-lt);position:sticky;top:0;z-index:20}
-nav#tabs button{flex:1;min-width:110px;padding:11px 8px;border:0;background:none;font:inherit;font-size:13px;color:var(--g-dark);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
+nav#tabs{display:flex;gap:0;justify-content:center;overflow-x:auto;background:#fff;border-bottom:2px solid var(--g-lt);position:sticky;top:0;z-index:20}
+nav#tabs button{flex:0 1 auto;padding:11px 22px;border:0;background:none;font:inherit;font-size:13px;color:var(--g-dark);border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap}
 nav#tabs button.on{color:var(--blue-aaa);border-bottom-color:var(--un);font-weight:600}
 nav#tabs button .ok{color:var(--green);font-weight:700}
 nav#tabs button .todo{display:inline-block;background:var(--red);color:#fff;border-radius:8px;font-size:10px;padding:1px 6px;margin-left:4px;vertical-align:1px}
-main{max-width:880px;margin:0 auto;padding:14px 12px 130px;background:#fff}
-.stepbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:10px 0 2px}
+main{max-width:880px;margin:0 auto;padding:8px 12px 130px;background:#fff}
+.stepbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:8px 0 0}
 .dots{display:flex;gap:6px;flex-wrap:wrap}
 .dots button{width:27px;height:27px;border-radius:50%;border:2px solid var(--g-mid);background:#fff;color:var(--g-dark);font-size:11.5px;font-weight:600;cursor:pointer;padding:0;line-height:1}
 .dots button.cur{background:var(--un);border-color:var(--un);color:#fff}
@@ -72,7 +72,8 @@ main{max-width:880px;margin:0 auto;padding:14px 12px 130px;background:#fff}
 .dots button.cur.good{color:#fff}
 .dots button.bad{border-color:var(--red);color:var(--red-aaa)}
 .stepbar .where{font-size:12px;color:var(--gray)}
-.group{background:#fff;border:1px solid var(--g-lt);border-radius:6px;padding:16px;margin:12px 0}
+.group{background:#fff;border:1px solid var(--g-lt);border-radius:6px;padding:14px 16px;margin:10px 0}
+.fld.sub label{font-weight:400;font-size:12px;color:var(--gray)}
 .group>h3{margin:0 0 4px;color:var(--blue-aaa);font-size:15.5px}
 .group>.desc{font-size:13px;color:var(--gray);margin:0 0 10px}
 .fld{margin:14px 0}
@@ -115,7 +116,7 @@ footer .bar{max-width:880px;margin:0 auto;display:flex;gap:14px;align-items:cent
 .notice.warn{background:var(--red-bg);border:1px solid var(--red)}
 .notice.info{background:var(--blue-bg);border:1px solid var(--blue-pale)}
 .hidden{display:none!important}
-@media(max-width:560px){.score-row{flex-direction:column}.score-row .num{width:100%}#logo{height:34px}}
+@media(max-width:560px){.score-row{flex-direction:column}.score-row .num{width:100%}#logo{height:42px}}
 </style>
 </head>
 <body>
@@ -405,7 +406,7 @@ const CATALOG=[
     F('fld_visitCountry','Country','select'),
     F('fld_visitLocation','Location name'),
     F('fld_visitGps','GPS data (if available)'),
-    F('fld_visitDate','Date(s) of visit','text',{ph:'DD/MM/YYYY - DD/MM/YYYY'}),
+    F('fld_visitDate','Date(s) of visit','daterange'),
   ]},
   {h:'1.1.6 Monitoring members',fields:[
     F('fld_monLeadType','Monitoring lead','select'),
@@ -668,6 +669,26 @@ function registerInput(container,{key,sheet,ref,type,label,options,ph,pre,rubric
   wrap.appendChild(lab);
   let input;
   const cur=key in state?state[key]:origValueFor(it);
+  if(type==='daterange'){
+    // two date pickers writing one "DD/MM/YYYY - DD/MM/YYYY" text cell
+    const m=String(cur).match(/(\d{1,2})\/(\d{1,2})\/(\d{4})(?:\s*[-–]\s*(\d{1,2})\/(\d{1,2})\/(\d{4}))?/);
+    const iso=(d,mo,y)=>y+'-'+mo.padStart(2,'0')+'-'+d.padStart(2,'0');
+    const d1=el('input',{type:'date'}), d2=el('input',{type:'date'});
+    if(m){d1.value=iso(m[1],m[2],m[3]);if(m[4])d2.value=iso(m[4],m[5],m[6])}
+    const paint=()=>{d1.classList.toggle('filled',!!d1.value);d2.classList.toggle('filled',!!d2.value)};
+    const upd=()=>{
+      const v1=d1.value?toDMY(d1.value):'', v2=d2.value?toDMY(d2.value):'';
+      state[key]=v1&&v2?v1+' - '+v2:(v1||v2);
+      wrap.classList.remove('err');paint();onStateChange();
+    };
+    d1.addEventListener('input',upd);d2.addEventListener('input',upd);paint();
+    const cols=el('div',{class:'cols'});
+    const w1=el('div',{class:'fld sub'},'<label>First day</label>'), w2=el('div',{class:'fld sub'},'<label>Last day</label>');
+    w1.appendChild(d1);w2.appendChild(d2);cols.appendChild(w1);cols.appendChild(w2);
+    wrap.appendChild(cols);
+    container.appendChild(wrap);
+    return it;
+  }
   if(type==='select'){
     input=el('select');
     input.appendChild(el('option',{value:''},'— select —'));
